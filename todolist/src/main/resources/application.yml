@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: TodoApplication
+  jackson:
+    default-property-inclusion: non_null
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        jdbc:
+          batch_size: 50
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - auditevents
+          - httptrace
+          - metrics
+          - prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
+            percentiles-histogram: true
+
+server:
+  tomcat:
+    mbeanregistry:
+      enabled: true
+
+springdoc:
+  show-actuator: true
+
+metrics:
+  scheduler:
+    interval: PT1M
